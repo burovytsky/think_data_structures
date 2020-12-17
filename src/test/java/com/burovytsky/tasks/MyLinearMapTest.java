@@ -28,7 +28,7 @@ public class MyLinearMapTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		map = new MyLinearMap<String, Integer>();
+		map = new MyLinearMap<>();
 		map.put("One", 1);
 		map.put("Two", 2);
 		map.put("Three", 3);
@@ -102,6 +102,8 @@ public class MyLinearMapTest {
 	@Test
 	public void testPut() {
 		map.put("One", 11);
+		var s = map.values();
+		var k = map.keySet();
 		assertThat(map.size(), is(4));
 		assertThat(map.get("One"), is(11));
 		

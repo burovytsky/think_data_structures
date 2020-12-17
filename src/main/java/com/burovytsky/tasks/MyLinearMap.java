@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class MyLinearMap<K, V> implements Map<K, V> {
 
-	private List<Entry> entries = new ArrayList<Entry>();
+	private final List<Entry> entries = new ArrayList<>();
 
 	public class Entry implements Map.Entry<K, V> {
 		private K key;
@@ -58,8 +58,7 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 	 * @param target
 	 */
 	private Entry findEntry(Object target) {
-		// TODO: FILL THIS IN!
-		return null;
+		return entries.stream().filter(e -> equals(e.key, target)).findFirst().orElse(null);
 	}
 
 	/**
@@ -93,8 +92,8 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V get(Object key) {
-		// TODO: FILL THIS IN!
-		return null;
+		Entry entry = findEntry(key);
+		return entry == null ? null : entry.getValue();
 	}
 
 	@Override
@@ -113,8 +112,15 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
-		// TODO: FILL THIS IN!
-		return null;
+		Entry entry = findEntry(key);
+		if(entry == null){
+			entries.add(new Entry(key, value));
+			return null;
+		}else{
+			V oldValue = entry.getValue();
+			entry.setValue(value);
+			return oldValue;
+		}
 	}
 
 	@Override
@@ -126,8 +132,9 @@ public class MyLinearMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V remove(Object key) {
-		// TODO: FILL THIS IN!
-		return null;
+		Entry entry = findEntry(key);
+		entries.remove(entry);
+		return entry == null ? null : entry.getValue();
 	}
 
 	@Override
