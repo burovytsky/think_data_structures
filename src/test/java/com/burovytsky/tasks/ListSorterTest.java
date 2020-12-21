@@ -26,14 +26,9 @@ public class ListSorterTest {
 	@Before
 	public void setUp() throws Exception {
 
-		comparator = new Comparator<Integer>() {
-			@Override
-			public int compare(Integer elt1, Integer elt2) {
-				return elt1.compareTo(elt2);
-			}
-		};
+		comparator = Comparator.naturalOrder();
 		
-		sorter = new ListSorter<Integer>();
+		sorter = new ListSorter<>();
 	}
 
 	/**

@@ -55,8 +55,14 @@ public class ListSorter<T> {
 	 * @return
 	 */
 	public List<T> mergeSort(List<T> list, Comparator<T> comparator) {
-
-		return null;
+		int size = list.size();
+		if (size <= 1) {
+			return list;
+		}
+		// make two lists with half the elements each.
+		List<T> first = mergeSort(new LinkedList<T>(list.subList(0, size/2)), comparator);
+		List<T> second = mergeSort(new LinkedList<T>(list.subList(size/2, size)), comparator);
+		return merge(first, second, comparator);
 	}
 
 	/**
@@ -70,8 +76,13 @@ public class ListSorter<T> {
 	private List<T> merge(List<T> first, List<T> second, Comparator<T> comparator) {
 		// NOTE: using LinkedList is important because we need to 
 		// remove from the beginning in constant time
-
-		return null;
+		List<T> result = new LinkedList<T>();
+		int total = first.size() + second.size();
+		for (int i=0; i<total; i++) {
+			List<T> winner = pickWinner(first, second, comparator);
+			result.add(winner.remove(0));
+		}
+		return result;
 	}
 
 	/**
